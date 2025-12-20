@@ -116,6 +116,13 @@ get_version_from_github() {
 
 [ -z "$VERSION" ] && VERSION=$(get_version_from_github)
 [ -n "$VERSION" ] || { echo "Failed to get the latest version from GitHub."; exit 1; }
+
+# Ensure VERSION starts with 'v'
+case "$VERSION" in
+  v*) ;;
+  *) VERSION="v$VERSION" ;;
+esac
+
 echo "Version: $VERSION"
 
 get_operating_system() {
